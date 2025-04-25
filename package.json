@@ -1,5 +1,5 @@
 {
-    "name": "rollup-plugin-web-worker-loader",
+    "name": "@colingm/rollup-plugin-web-worker-loader",
     "version": "1.7.0",
     "description": "Rollup plugin to handle Web Workers",
     "main": "src/index.js",
