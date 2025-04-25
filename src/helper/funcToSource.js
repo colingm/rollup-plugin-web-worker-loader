@@ -1,14 +1,13 @@
 export function funcToSource(fn, sourcemapArg) {
     var sourcemap = sourcemapArg === undefined ? null : sourcemapArg;
-    var source = fn.toString();
-    var lines = source.split('\n');
-    lines.pop();
-    lines.shift();
-    var blankPrefixLength = lines[0].search(/\S/);
     var regex = /(['"])__worker_loader_strict__(['"])/g;
-    for (var i = 0, n = lines.length; i < n; ++i) {
-        lines[i] = lines[i].substring(blankPrefixLength).replace(regex, '$1use strict$2') + '\n';
-    }
+    var lines = [];
+
+    // instead of extracting the function source code, just return the function as if it's being evaluated
+    // by the caller.
+    var source = fn.toString();
+    source = source.replace(regex, '$1use strict$2');
+    lines.push('(' + source + ')()');
     if (sourcemap) {
         lines.push('\/\/# sourceMappingURL=' + sourcemap + '\n');
     }
